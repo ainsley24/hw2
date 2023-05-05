@@ -69,7 +69,11 @@
 
 # Delete existing data, so you'll start fresh each time this script is run.
 # Use `Model.destroy_all` code.
-Model.destroy_all
+
+Movie.destroy_all
+Studio.destroy_all
+Actor.destroy_all
+Role.destroy_all
 
 # Generate models and tables, according to the domain model.
 # did this in terminal and migration files
@@ -292,8 +296,10 @@ for movie in movies
     movie_name = movie["title"]
     movie_rating = movie["rated"]
     movie_year = movie["year_released"]
-
-    puts "#{movie_name} #{movie_year} #{movie_rating} #{studio_id}"
+    studio = Studio.find_by({"id" => movie["studio_id"]})
+    #above line likely unnecessary since there is only one studio here
+    studio_name = studio["name"]
+    puts "#{movie_name} #{movie_year} #{movie_rating} #{studio_name}"
 
 end 
 
@@ -304,5 +310,17 @@ puts "Top Cast"
 puts "========"
 puts ""
 
-# Query the cast data and loop through the results to display the cast output for each movie.
-# TODO!
+roles = Role.all
+
+for role in roles
+    movie = Movie.find_by({"id" => role["movie_id"]})
+    movie_title = movie["title"]
+    actor = Actor.find_by({"id" => role["actor_id"]})
+    actor_name = actor["name"]
+    character_name = role["character_name"]
+    puts "#{movie_title} #{actor_name} #{character_name}"
+
+end
+
+
+
