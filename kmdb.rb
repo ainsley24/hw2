@@ -69,14 +69,144 @@
 
 # Delete existing data, so you'll start fresh each time this script is run.
 # Use `Model.destroy_all` code.
-# TODO!
+Model.destroy_all
 
 # Generate models and tables, according to the domain model.
-# TODO!
+# did this in terminal and migration files
 
 # Insert data into the database that reflects the sample data shown above.
 # Do not use hard-coded foreign key IDs.
-# TODO!
+
+studio = Studio.new
+studio ["name"] = "Warner Bros."
+studio.save
+
+#now I am going to put all the movies in the studio since they have an ID
+
+warner_bros = Studio.find_by ({"name" => "Warner Bros."})
+
+movie = Movie.new
+movie["title"] = "Batman Begins"
+movie ["rated"] = "PG-13"
+movie ["year_released"] = "2005"
+movie ["studio_id"] = warner_bros["id"]
+movie.save
+
+movie = Movie.new
+movie["title"] = "The Dark Knight"
+movie ["rated"] = "PG-13"
+movie ["year_released"] = "2008"
+movie ["studio_id"] = warner_bros["id"]
+movie.save
+
+
+movie = Movie.new
+movie["title"] = "The Dark Knight Rises"
+movie ["rated"] = "PG-13"
+movie ["year_released"] = "2012"
+movie ["studio_id"] = warner_bros["id"]
+movie.save
+
+
+#now I will do the actors since they don't have joins
+
+actor = Actor.new
+actor ["name"] = "Christian Bale"
+actor.save
+
+actor = Actor.new
+actor ["name"] = "Michael Caine"
+actor.save
+
+actor = Actor.new
+actor ["name"] = "Liam Neeson"
+actor.save
+
+actor = Actor.new
+actor ["name"] = "Katie Holmes"
+actor.save
+
+actor = Actor.new
+actor ["name"] = "Gary Oldman"
+actor.save
+
+actor = Actor.new
+actor ["name"] = "Heath Ledger"
+actor.save
+
+actor = Actor.new
+actor ["name"] = "Aaron Eckhart"
+actor.save
+
+actor = Actor.new
+actor ["name"] = "Maggie Gyllenhaal"
+actor.save
+
+actor = Actor.new
+actor ["name"] = "Tom Hardy"
+actor.save
+
+actor = Actor.new
+actor ["name"] = "Joseph Gordon-Levitt"
+actor.save
+
+actor = Actor.new
+actor ["name"] = "Anne Hathaway"
+actor.save
+
+#Now I will add the roles using the two joins there
+
+batman_begins = Movie.find_by({"title" => "Batman Begins"})
+christian = Actor.find_by({"name" => "Christian Bale"})
+
+role = Role.new
+role["movie_id"] = batman_begins["id"]
+role["actor_id"] = christian["id"]
+role["character_name"] = "Bruce Wayne"
+role.save
+
+michael = Actor.find_by({"name" => "Michael Caine"})
+
+role = Role.new
+role["movie_id"] = batman_begins["id"]
+role["actor_id"] = michael["id"]
+role["character_name"] = "Alfred"
+role.save
+
+liam = Actor.find_by({"name" => "Liam Neeson"})
+
+role = Role.new
+role["movie_id"] = batman_begins["id"]
+role["actor_id"] = liam["id"]
+role["character_name"] = "Ra's Al Ghul"
+role.save
+
+katie = Actor.find_by({"name" => "Katie Holmes"})
+
+role = Role.new
+role["movie_id"] = batman_begins["id"]
+role["actor_id"] = katie["id"]
+role["character_name"] = "Rachel Dawes"
+role.save
+
+gary = Actor.find_by({"name" => "Gary Oldman"})
+
+role = Role.new
+role["movie_id"] = batman_begins["id"]
+role["actor_id"] = gary["id"]
+role["character_name"] = "Commissioner Gordon"
+role.save
+
+
+
+
+
+
+
+
+
+
+
 
 # Prints a header for the movies output
 puts "Movies"
